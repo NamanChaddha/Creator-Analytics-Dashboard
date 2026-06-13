@@ -1,26 +1,14 @@
-from googleapiclient.discovery import build
+from flask import Flask, render_template
+from dashboard import comments
 
-key="api key shouldnt be made public :-)"
-youtube=build("youtube","v3",developerKey=key)
+app = Flask(__name__)
 
-def comments(videoId):
-    arr=[]
-    a=youtube.commentThreads().list(
-        part="snippet",
-        videoId="LKNHVDPKy7g",
-        maxResults=100
+@app.route("/")
+def home():
+    comment= comments("dQw4w9WgXcQ")
+
+    return render_template("comments.html",comments=comment
     )
-    res=a.execute()
-    for j in res["items"]:
-        comment = j["snippet"]["topLevelComment"]["snippet"]
-        arr.append({
-            "author":comment["authorDisplayName"],
-            "text":comment["textDisplay"],
-            "likes":comment["likeCount"]
-        })
-    return arr
 
-
-comment = comments("LKNHVDPKy7g")
-for c in comment[:5]:
-    print(c)
+if __name__ == "__main__":
+    app.run(debug=True)
