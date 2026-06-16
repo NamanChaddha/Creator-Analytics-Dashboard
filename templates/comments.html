@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comments</title>
+</head>
+<body>
+<form method="POST">
+
+    <input
+        type="text"
+        name="url"
+        placeholder="Paste YouTube URL"
+        style="width:500px;"
+    >
+
+    <button type="submit">
+        Analyze
+    </button>
+
+</form>
+<h2>Analytics</h2>
+
+<p>Total Comments: {{ total_comments }}</p>
+
+<p>Total Likes: {{ total_likes }}</p>
+
+<p>Positive: {{ positive }}</p>
+
+<p>Negative: {{ negative }}</p>
+
+<p>Neutral: {{ neutral }}</p>
+<br>
+<table border="1">
+
+<tr>
+    <th>Author</th>
+    <th>Comment</th>
+    <th>Likes</th>
+    <th>Sentiment</th>
+</tr>
+
+{% for c in comments %}
+<tr>
+    <td>{{ c.author }}</td>
+    <td>{{ c.comment_text }}</td>
+    <td>{{ c.likes }}</td>
+    <td>{{ c.sentiment }}</td>
+</tr>
+{% endfor %}
+
+</table>
+<h2>Total Comments: {{ total_comments }}</h2>
+<h2>Total Likes: {{ total_likes }}</h2>
+</body>
+</html>
