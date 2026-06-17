@@ -4,7 +4,8 @@ from sentiment import get_sentiment
 
 key="AIzaSyDunGRWEClfAf4-H7mgSWs6gSzPjuNUal4"
 youtube=build("youtube","v3",developerKey=key)
-
+def is_question(text):
+    return "?" in text
 def comments(videoId):
     arr=[]
     a=youtube.commentThreads().list(
@@ -21,10 +22,12 @@ def comments(videoId):
         "likes": comment["likeCount"],
         "sentiment": get_sentiment(
             comment["textDisplay"]
-        )
+        ),
+        "is_question": is_question(comment["textDisplay"])
     })
-    print(arr[-1])
+    print(arr[0])
     return arr
+
 
 
 comment = comments("LKNHVDPKy7g")

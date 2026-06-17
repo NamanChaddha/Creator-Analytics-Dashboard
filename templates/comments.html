@@ -212,12 +212,33 @@ Analyze
 {% endfor %}
 
 </table>
+<h2>🔥 Trending Keywords</h2>
 
+<table border="1">
+
+<tr>
+    <th>Keyword</th>
+    <th>Frequency</th>
+</tr>
+
+{% for word,count in common_words %}
+<tr>
+    <td>{{ word }}</td>
+    <td>{{ count }}</td>
+</tr>
+{% endfor %}
+
+</table>
 </div>
 <div class="card">
     <h2>Questions Asked</h2>
     <p>{{ question_count }}</p>
 </div>
+<a href="/download_report">
+    <button>
+        📄 Download PDF Report
+    </button>
+</a>
 <script>
 
 const ctx = document.getElementById('sentimentChart');
