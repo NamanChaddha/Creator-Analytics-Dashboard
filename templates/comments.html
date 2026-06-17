@@ -1,36 +1,178 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Comments</title>
+    <title>YouTube Creator Analytics</title>
+
+    <style>
+
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f6f9;
+            margin:0;
+            padding:0;
+        }
+
+        .container{
+            width:90%;
+            margin:auto;
+            padding:20px;
+        }
+
+        h1{
+            text-align:center;
+            color:#e62117;
+        }
+
+        .search-box{
+            text-align:center;
+            margin:30px 0;
+        }
+
+        input[type=text]{
+            width:60%;
+            padding:12px;
+            border-radius:8px;
+            border:1px solid #ccc;
+            font-size:16px;
+        }
+
+        button{
+            padding:12px 20px;
+            background:#e62117;
+            color:white;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+        button:hover{
+            background:#c41c13;
+        }
+
+        .cards{
+            display:flex;
+            gap:20px;
+            justify-content:center;
+            flex-wrap:wrap;
+            margin-bottom:30px;
+        }
+
+        .card{
+            background:white;
+            width:220px;
+            padding:20px;
+            border-radius:12px;
+            box-shadow:0 2px 10px rgba(0,0,0,0.1);
+            text-align:center;
+        }
+
+        .card h2{
+            margin:0;
+            color:#333;
+        }
+
+        .card p{
+            font-size:28px;
+            font-weight:bold;
+            margin-top:10px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:white;
+            box-shadow:0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        th{
+            background:#e62117;
+            color:white;
+            padding:12px;
+        }
+
+        td{
+            padding:10px;
+            border-bottom:1px solid #ddd;
+        }
+
+        tr:hover{
+            background:#f5f5f5;
+        }
+
+        .positive{
+            color:green;
+            font-weight:bold;
+        }
+
+        .negative{
+            color:red;
+            font-weight:bold;
+        }
+
+        .neutral{
+            color:rgb(21, 0, 255);
+            font-weight:bold;
+        }
+
+    </style>
+
 </head>
+
 <body>
+
+<div class="container">
+
+<h1>YouTube Creator Analytics Dashboard</h1>
+
+<div class="search-box">
+
 <form method="POST">
 
-    <input
-        type="text"
-        name="url"
-        placeholder="Paste YouTube URL"
-        style="width:500px;"
-    >
+<input
+type="text"
+name="url"
+placeholder="Paste YouTube URL Here"
+required>
 
-    <button type="submit">
-        Analyze
-    </button>
+<button type="submit">
+Analyze
+</button>
 
 </form>
-<h2>Analytics</h2>
 
-<p>Total Comments: {{ total_comments }}</p>
+</div>
 
-<p>Total Likes: {{ total_likes }}</p>
+<div class="cards">
 
-<p>Positive: {{ positive }}</p>
+<div class="card">
+<h2>Total Comments</h2>
+<p>{{ total_comments }}</p>
+</div>
 
-<p>Negative: {{ negative }}</p>
+<div class="card">
+<h2>Total Likes</h2>
+<p>{{ total_likes }}</p>
+</div>
 
-<p>Neutral: {{ neutral }}</p>
-<br>
-<table border="1">
+<div class="card">
+<h2>Positive</h2>
+<p>{{ positive }}</p>
+</div>
+
+<div class="card">
+<h2>Negative</h2>
+<p>{{ negative }}</p>
+</div>
+
+<div class="card">
+<h2>Neutral</h2>
+<p>{{ neutral }}</p>
+</div>
+
+</div>
+
+<table>
 
 <tr>
     <th>Author</th>
@@ -41,15 +183,33 @@
 
 {% for c in comments %}
 <tr>
-    <td>{{ c.author }}</td>
-    <td>{{ c.comment_text }}</td>
-    <td>{{ c.likes }}</td>
-    <td>{{ c.sentiment }}</td>
+
+<td>{{ c.author }}</td>
+
+<td>{{ c.comment_text }}</td>
+
+<td>{{ c.likes }}</td>
+
+<td>
+
+{% if c.sentiment == "Positive" %}
+<span class="positive">Positive</span>
+
+{% elif c.sentiment == "Negative" %}
+<span class="negative">Negative</span>
+
+{% else %}
+<span class="neutral">Neutral</span>
+{% endif %}
+
+</td>
+
 </tr>
 {% endfor %}
 
 </table>
-<h2>Total Comments: {{ total_comments }}</h2>
-<h2>Total Likes: {{ total_likes }}</h2>
+
+</div>
+
 </body>
 </html>
