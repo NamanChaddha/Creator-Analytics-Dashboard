@@ -17,6 +17,7 @@ def home():
         video_id = url.split("v=")[1].split("&")[0]
 
         data = comments(video_id)
+        question_count = sum(1 for c in data if c["is_question"])
         positive = sum(1 for c in data if c["sentiment"] == "Positive")
 
         negative = sum(
@@ -34,6 +35,7 @@ def home():
             c.get("likes", 0)
             for c in data
         )
+        
     return render_template(
     "comments.html",
     comments=data,
@@ -41,7 +43,8 @@ def home():
     total_likes=total_likes,
     positive=positive,
     negative=negative,
-    neutral=neutral
+    neutral=neutral,
+    question_count=question_count
      )
     
 if __name__ == "__main__":
