@@ -2,7 +2,7 @@ from googleapiclient.discovery import build
 import mysql.connector
 from sentiment import get_sentiment
 
-key="AIzaSyDunGRWEClfAf4-H7mgSWs6gSzPjuNUal4"
+key="api key is private :-)"
 youtube=build("youtube","v3",developerKey=key)
 def is_question(text):
     return "?" in text
